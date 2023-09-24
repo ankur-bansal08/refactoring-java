@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * The {@code MovieFactory} class is responsible for creating movie objects based on the provided
  * {@code MovieCode} and other details such as ID and title.
@@ -14,12 +16,13 @@ public class MovieFactory {
      * @throws IllegalArgumentException If an invalid or unsupported {@code MovieCode} is provided.
      */
     public static Movie getMovie(MovieCategoryType code, String id, String title) {
+        if (Objects.isNull(code))
+            throw new IllegalArgumentException("No Movie Category Code provided.");
         return switch (code) {
             case REGULAR -> new RegularMovie(id, title);
             case CHILDREN -> new ChildrenMovie(id, title);
             case NEW -> new NewMovie(id, title);
-            //not needed
-            //default -> throw new IllegalArgumentException("Invalid MovieCode: " + code);
+            default -> throw new IllegalArgumentException("Invalid MovieCode: " + code);
         };
     }
 }
