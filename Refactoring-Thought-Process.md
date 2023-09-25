@@ -34,8 +34,9 @@
 1. We can create a master data and related APIs to apply CRUD operations on Movies master data while saving the data in a database.
 2. Customer details can also be saved in system if we are looking to create login based mechanism.
 3. Config related to rental manipulation can be saved in a DB.
-4. Currently the code is written and maintained with plain java based system and from scalability or usability point of view we would either need a Application or APIs which can be integrated with a user friendly UI/apps using which the whole end to end rental transactions can take place.
-5. Unit testing would be required for the same as well.
-6. For Code coverage and quality we can integrate SonarQube.
-7. Logger needs to be integrated for proper logging and monitoring help.
-6. CI/CD can be taken care as per the usage expectations.
+4. Remove static block from Movie class as the data would be read from DB.
+5. Currently the code is written and maintained with plain java based system and from scalability or usability point of view we would either need a Application or APIs which can be integrated with a user friendly UI/apps using which the whole end to end rental transactions can take place.
+6. Unit testing would be required for the same as well.
+7. For Code coverage and quality we can integrate SonarQube.
+8. Logger needs to be integrated for proper logging and monitoring help.
+9. CI/CD can be taken care as per the usage expectations.
