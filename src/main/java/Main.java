@@ -12,8 +12,10 @@ public class Main {
                 You earned 2 frequent points
                 """;
 
-        List<MovieRental> movieRentalList = Arrays.asList(new MovieRental("F001", 3),
-                new MovieRental("F002", 1));
+        Movie movieToRent1 = MovieFactory.getMovieById("F001");
+        Movie movieToRent2 = MovieFactory.getMovieById("F002");
+        List<MovieRental> movieRentalList = Arrays.asList(new MovieRental(movieToRent1, 3),
+                new MovieRental(movieToRent2, 1));
         Customer customer = new Customer("C. U. Stomer", movieRentalList);
 
         String result = customer.getStatement();

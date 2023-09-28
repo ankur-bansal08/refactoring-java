@@ -29,7 +29,7 @@
 
 
 
-# Scope of improvements-
+# Scope of enhancements-
 
 1. We can create a master data and related APIs to apply CRUD operations on Movies master data while saving the data in a database.
 2. Customer details can also be saved in system if we are looking to create login based mechanism.

@@ -49,7 +49,7 @@ public class Customer {
         for (MovieRental movieRental : movieRentals) {
             Movie movie = movieRental.getMovie();
             if (movie == null) {
-                throw new MovieNotFoundException("Movie not found for rental ID: " + movieRental.getMovieId());
+                throw new IllegalArgumentException("Movie details are required to generate statement.");
             }
 
             double rentalAmount = movieRental.getRentalAmount();

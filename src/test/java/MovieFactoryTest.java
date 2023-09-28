@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MovieFactoryTest {
 
@@ -27,6 +26,16 @@ class MovieFactoryTest {
     void testGetMovieForInvalidCode() {
         assertThrows(IllegalArgumentException.class, () ->
                 MovieFactory.getMovie(null, "F004", "Invalid Movie"));
+    }
+
+    @Test
+    void testGetMovieForExistingMovieId() {
+        assertEquals("F001", MovieFactory.getMovieById("F001").getId());
+    }
+
+    @Test
+    void testGetMovieForNonExistingMovieId() {
+        assertThrows(MovieNotFoundException.class, () -> MovieFactory.getMovieById("random"));
     }
 }
 

@@ -1,14 +1,14 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CustomerTest {
@@ -24,40 +24,35 @@ public class CustomerTest {
 
     @Test
     public void testGetStatementWithRentals() {
-        Movie mockMovie1 = Mockito.mock(Movie.class);
-        Movie mockMovie2 = Mockito.mock(Movie.class);
+        MovieRental mockRental = mock(MovieRental.class);
+        when(mockRental.getMovie()).thenReturn(new RegularMovie("F001", "You've Got Mail"));
+        when(mockRental.getRentalAmount()).thenReturn(2.0);
+        when(mockRental.getFrequentEnterPoints()).thenReturn(1);
 
-        Mockito.when(mockMovie1.getId()).thenReturn("F001");
-        Mockito.when(mockMovie2.getId()).thenReturn("F002");
-
-        List<MovieRental> rentals = Arrays.asList(
-                new MovieRental(mockMovie1.getId(), 3),
-                new MovieRental(mockMovie2.getId(), 2)
-        );
-
-        Customer customer = new Customer("Alice", rentals);
+        // Add the mock rental to the list
+        List<MovieRental> movieRentals = new ArrayList<>();
+        movieRentals.add(mockRental);
+        Customer customer = new Customer("Alice", movieRentals);
         String statement = customer.getStatement();
 
         String expectedStatement = """
                 Rental Record for Alice
-                \tYou've Got Mail\t3.5
-                \tMatrix\t2.0
-                Amount owed is 5.5
-                You earned 2 frequent points
+                \tYou've Got Mail\t2.0
+                Amount owed is 2.0
+                You earned 1 frequent points
                 """;
 
         assertEquals(expectedStatement, statement);
     }
 
+
     @Test
-    public void testGetStatementWithInvalidMovie() {
-        Movie mockInvalidMovie = Mockito.mock(Movie.class);
-        Mockito.when(mockInvalidMovie.getId()).thenReturn("d73");
+    void testGetStatementWithNullMovieList() {
+        // Create a customer with a null movie rentals list
+        Customer customer = new Customer("Alice", null);
 
-        MovieRental invalidRental = new MovieRental(mockInvalidMovie.getId(), 5);
-        Customer customer = new Customer("Alice", Collections.singletonList(invalidRental));
-
-        assertThrows(MovieNotFoundException.class, customer::getStatement);
+        String expected = "No rentals for Alice";
+        assertEquals(expected, customer.getStatement());
     }
 }
 

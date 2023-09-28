@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MovieTest {
 
@@ -47,16 +46,5 @@ class MovieTest {
         movie = new NewMovie("F004", "Fast & Furious X");
         int frequentEnterPoints = movie.calculateFrequentEnterPoints(2);
         assertEquals(1, frequentEnterPoints);
-    }
-
-    @Test
-    void testGetMovieForExistingMovieId() {
-        movie = Movie.getMovie("F001");
-        assertEquals("F001", movie.getId());
-    }
-
-    @Test
-    void testGetMovieForNonExistingMovieId() {
-        assertThrows(MovieNotFoundException.class, () -> Movie.getMovie("random"));
     }
 }
